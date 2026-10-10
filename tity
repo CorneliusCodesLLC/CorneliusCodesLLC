@@ -1,0 +1,728 @@
+<style>
+    /* Scoped CSS for Squarespace - 1940s Archival Dossier Aesthetic */
+    .sqs-entity-wrapper {
+        --board-bg: #e2d3b3; /* Manila folder / aged parchment */
+        --card-bg: #f5eedc; /* Aged off-white paper */
+        --ink-dark: #2a2520; /* Faded charcoal/brown ink */
+        --ink-light: #5e5445; /* Lighter ledger ink */
+        --line-color: #96866b; /* Warm brown connector lines */
+        --stamp-red: #8f2a23; /* Vintage rubber stamp red */
+        
+        /* Vintage Color-Coded Headers */
+        --hdr-individual: #364149; /* Faded Navy */
+        --hdr-toplevel: #4a5141; /* Olive Drab */
+        --hdr-subsidiary: #5c564b; /* Warm Slate */
+        --hdr-political: #7a3830; /* Rust Red */
+        --hdr-foundation: #8c704b; /* Dark Gold/Brass */
+        
+        font-family: Georgia, "Times New Roman", Times, serif;
+        color: var(--ink-dark);
+        line-height: 1.5;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 30px;
+        box-sizing: border-box;
+    }
+
+    .sqs-entity-wrapper * { box-sizing: border-box; }
+
+    /* The Main Board */
+    .sqs-master-registry {
+        min-width: 860px;
+        max-width: 1140px;
+        margin: 0 auto;
+        background-color: var(--board-bg);
+        border: 1px solid #c2b18f;
+        box-shadow: inset 0 0 40px rgba(120, 100, 70, 0.1), 0 10px 20px rgba(0,0,0,0.1);
+        padding: 40px 50px;
+        border-radius: 4px;
+    }
+
+    .sqs-entity-wrapper .registry-main-title {
+        text-align: center;
+        font-size: 26px;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        border-bottom: 2px solid var(--ink-dark);
+        padding-bottom: 12px;
+        margin-bottom: 8px;
+    }
+
+    .sqs-entity-wrapper .subtitle {
+        text-align: center;
+        font-family: "Courier New", Courier, monospace;
+        color: var(--ink-light);
+        margin-bottom: 45px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .sqs-entity-wrapper .section-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--line-color);
+        color: var(--ink-dark);
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+        margin-top: 50px;
+    }
+    
+    /* Clean, Organized Tree Layout */
+    .sqs-entity-wrapper ul.tree-branch {
+        list-style-type: none !important;
+        position: relative;
+        padding-left: 45px !important; 
+        margin: 0 !important;
+    }
+    
+    .sqs-entity-wrapper ul.tree-branch.collapsed { display: none; }
+    
+    /* Vertical Connector Line */
+    .sqs-entity-wrapper ul.tree-branch::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        top: -10px;
+        bottom: 0;
+        width: 2px;
+        background-color: var(--line-color);
+    }
+    
+    /* Hides the tail of the vertical line after the last item */
+    .sqs-entity-wrapper ul.tree-branch > li:last-child::after {
+        content: "";
+        position: absolute;
+        left: -22px;
+        top: 36px;
+        bottom: 0;
+        width: 6px;
+        background: var(--board-bg);
+    }
+
+    .sqs-entity-wrapper li.tree-node {
+        position: relative;
+        margin: 25px 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Horizontal Connector Line */
+    .sqs-entity-wrapper li.tree-node::before {
+        content: "";
+        position: absolute;
+        left: -27px;
+        top: 32px;
+        width: 27px;
+        height: 2px;
+        background-color: var(--line-color);
+    }
+    
+    /* Brass Rivet Toggle Button */
+    .sqs-entity-wrapper .toggle-btn {
+        position: absolute;
+        left: -33px;
+        top: 25px;
+        width: 16px;
+        height: 16px;
+        background: #d4c29d;
+        border: 1px solid var(--ink-dark);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: monospace;
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--ink-dark);
+        cursor: pointer;
+        z-index: 10;
+        padding: 0;
+        line-height: 1;
+        box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .sqs-entity-wrapper .toggle-btn:hover { background: var(--ink-dark); color: #fff; }
+    
+    /* Dossier Card Design */
+    .sqs-entity-wrapper .entity-card {
+        background: var(--card-bg);
+        border: 1px solid #c2b18f;
+        display: inline-block;
+        width: 440px;
+        vertical-align: middle;
+        box-shadow: 2px 3px 5px rgba(0,0,0,0.1), 1px 1px 1px rgba(0,0,0,0.15);
+        position: relative;
+        z-index: 2;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    
+    /* Card Header - Creates instant visual understanding */
+    .sqs-entity-wrapper .entity-header {
+        padding: 10px 14px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid var(--ink-dark);
+    }
+
+    .sqs-entity-wrapper .individual .entity-header { background: var(--hdr-individual); }
+    .sqs-entity-wrapper .top-level .entity-header { background: var(--hdr-toplevel); }
+    .sqs-entity-wrapper .subsidiary .entity-header { background: var(--hdr-subsidiary); }
+    .sqs-entity-wrapper .commercial .entity-header { background: var(--hdr-subsidiary); }
+    .sqs-entity-wrapper .health-beauty .entity-header { background: var(--hdr-subsidiary); }
+    .sqs-entity-wrapper .political .entity-header { background: var(--hdr-political); }
+    .sqs-entity-wrapper .foundation .entity-header { background: var(--hdr-foundation); }
+
+    .sqs-entity-wrapper .entity-name {
+        font-weight: bold;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        margin: 0;
+    }
+
+    /* Typewriter Label in Header */
+    .sqs-entity-wrapper .entity-type {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+
+    /* Red Rubber Stamp for Ownership */
+    .sqs-entity-wrapper .ownership-badge {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 10px;
+        font-weight: bold;
+        color: var(--stamp-red);
+        background: transparent;
+        border: 2px solid var(--stamp-red);
+        padding: 2px 6px;
+        transform: rotate(-3deg);
+        display: inline-block;
+        margin: 12px 14px 4px 14px;
+    }
+
+    /* Card Body Form */
+    .sqs-entity-wrapper .card-body { padding: 4px 14px 14px 14px; }
+
+    .sqs-entity-wrapper .tax-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px 12px;
+        margin-top: 8px;
+    }
+
+    .sqs-entity-wrapper .meta-item {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #dcd1ba;
+        padding-bottom: 4px;
+    }
+
+    /* Classic Serif Form Labels */
+    .sqs-entity-wrapper .meta-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        margin-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Typewriter Input Values */
+    .sqs-entity-wrapper .meta-value {
+        font-family: "Courier New", Courier, monospace;
+        color: var(--ink-dark);
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .sqs-entity-wrapper .legal-disclaimer {
+        grid-column: span 2;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 10px;
+        color: var(--ink-dark);
+        background: #e8dfc8;
+        padding: 8px;
+        border-left: 3px solid var(--ink-dark);
+        margin-top: 8px;
+    }
+
+    /* Archival Action Links */
+    .sqs-entity-wrapper .card-actions {
+        margin-top: 14px;
+        text-align: right;
+    }
+
+    .sqs-entity-wrapper .action-btn {
+        display: inline-block;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 11px;
+        font-weight: bold;
+        color: var(--ink-dark) !important;
+        text-decoration: none !important;
+        border-bottom: 1px solid var(--ink-dark);
+        transition: opacity 0.2s;
+    }
+
+    .sqs-entity-wrapper .action-btn:hover { opacity: 0.6; }
+    .sqs-entity-wrapper .action-btn::after { content: " ↗"; }
+</style>
+
+<div class="sqs-entity-wrapper">
+    <div class="sqs-master-registry">
+        <div class="registry-main-title">Corporate &amp; Governance Registry</div>
+        <div class="subtitle">Dept. of Records — Structured Equity &amp; Foundations</div>
+
+        <!-- SECTION 1: CORPORATE HOLDINGS & EQUITY TREE -->
+        <div class="registry-section">
+            <div class="section-title">I. Corporate Structure &amp; Equity Distributions</div>
+            
+            <ul class="tree-branch" style="padding-left: 0 !important;">
+                <style>.sqs-entity-wrapper ul.root-level::before { display: none; }</style>
+                
+                <!-- Adam Owner Card -->
+                <li class="tree-node">
+                    <div class="entity-card individual">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Adam Edward Cornelius</div>
+                                <div class="entity-type">Principal Individual Owner</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="ownership-badge">51% CONTROLLING EQUITY</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Entities owned directly by Adam -->
+                    <ul class="tree-branch">
+                        <li class="tree-node">
+                            <div class="entity-card commercial">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Sequoia Woods, Inc.</div>
+                                        <div class="entity-type">Corporate Entity</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="ownership-badge">0.00% OWNERSHIP</span>
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXXX</span></div>
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Corporation</span></div>
+                                        <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Registered Address</span><span class="meta-value">1000 Cypress Point Dr, Arnold, CA</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="tree-node">
+                            <div class="entity-card subsidiary">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Brittan Heights Condo Assoc.</div>
+                                        <div class="entity-type">Nonprofit Mutual Benefit</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="ownership-badge">~0.12% OWNERSHIP</span>
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXX</span></div>
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Mutual Benefit</span></div>
+                                        <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Registered Address</span><span class="meta-value">3323 Brittan Ave, San Carlos, CA</span></div>
+                                    </div>
+                                    <div class="card-actions"><a href="https://bizfileonline.sos.ca.gov/auth?from=/search/business" target="_blank" class="action-btn">Examine Registry Record</a></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="tree-node">
+                            <div class="entity-card commercial">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Bard NA LLC</div>
+                                        <div class="entity-type">DBA Google Tax</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="ownership-badge">51% ADAM / 49% CC</span>
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">State ID Number</span><span class="meta-value">17926802</span></div>
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Partnership (IL)</span></div>
+                                        <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                                    </div>
+                                    <div class="card-actions"><a href="https://taxgoogle.org" target="_blank" class="action-btn">Access Domain File</a></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Ellen Owner Card -->
+                <li class="tree-node">
+                    <div class="entity-card individual">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Ellen Amanda Cornelius</div>
+                                <div class="entity-type">Principal Individual Owner</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <span class="ownership-badge">49% MINORITY EQUITY</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="tree-branch">
+                        <!-- Cornelius Codes LLC Parent -->
+                        <li class="tree-node">
+                            <div class="entity-card top-level">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Cornelius Codes LLC</div>
+                                        <div class="entity-type">Holding Company</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">93-1919758</span></div>
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Partnership / LLC</span></div>
+                                        <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                                    </div>
+                                    <div class="card-actions"><a href="https://pocz.cc" target="_blank" class="action-btn">Access Domain File</a></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Level 3: Entities owned by Cornelius Codes LLC -->
+                            <ul class="tree-branch">
+                                <li class="tree-node">
+                                    <div class="entity-card subsidiary">
+                                        <div class="entity-header">
+                                            <div>
+                                                <div class="entity-name">Tulja Pawar Accounting Services</div>
+                                                <div class="entity-type">Subsidiary LLC</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="ownership-badge">100% OWNERSHIP</span>
+                                            <div class="tax-details">
+                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">93-1727945</span></div>
+                                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Partnership (IL)</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li class="tree-node">
+                                    <div class="entity-card subsidiary">
+                                        <div class="entity-header">
+                                            <div>
+                                                <div class="entity-name">In Solidarity LLC</div>
+                                                <div class="entity-type">Illinois LLC</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="ownership-badge">99% ADAM / 1% CC</span>
+                                            <div class="tax-details">
+                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">43-2336739</span></div>
+                                                <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                                            </div>
+                                            <div class="card-actions"><a href="https://sf4mi.org" target="_blank" class="action-btn">Access Domain File</a></div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tree-node">
+                                    <div class="entity-card health-beauty">
+                                        <div class="entity-header">
+                                            <div>
+                                                <div class="entity-name">Propinas LLC</div>
+                                                <div class="entity-type">Health &amp; Beauty LLC</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="ownership-badge">51% CC / 49% CARDOSO</span>
+                                            <div class="tax-details">
+                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">41-3287602</span></div>
+                                                <div class="meta-item"><span class="meta-label">State ID Number</span><span class="meta-value">17212842</span></div>
+                                                <div class="meta-item"><span class="meta-label">Business Phone</span><span class="meta-value">773.798.6152</span></div>
+                                                <div class="meta-item"><span class="meta-label">Establishment</span><span class="meta-value">Illinois (2025)</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li class="tree-node">
+                                    <div class="entity-card commercial">
+                                        <div class="entity-header">
+                                            <div>
+                                                <div class="entity-name">Adam Edward Cornelius LLC</div>
+                                                <div class="entity-type">Entertainment Company</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <span class="ownership-badge">100% OWNERSHIP</span>
+                                            <div class="tax-details">
+                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">93-2308837</span></div>
+                                                <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Level 4 -->
+                                    <ul class="tree-branch">
+                                        <li class="tree-node">
+                                            <div class="entity-card subsidiary">
+                                                <div class="entity-header">
+                                                    <div>
+                                                        <div class="entity-name">Burt Place LLC</div>
+                                                        <div class="entity-type">Hospitality Subsidiary</div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <span class="ownership-badge">100% OWNERSHIP</span>
+                                                    <div class="tax-details">
+                                                        <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">93-2632121</span></div>
+                                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Disregarded (IL)</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Level 5 -->
+                                            <ul class="tree-branch">
+                                                <li class="tree-node">
+                                                    <div class="entity-card political">
+                                                        <div class="entity-header">
+                                                            <div>
+                                                                <div class="entity-name">Federalist National Committee</div>
+                                                                <div class="entity-type">Political LLC</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <span class="ownership-badge">100% OWNERSHIP</span>
+                                                            <div class="tax-details">
+                                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">932707724</span></div>
+                                                                <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">Chicago, IL</span></div>
+                                                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Registered Address</span><span class="meta-value">1905 W Henderson St Bstm B</span></div>
+                                                            </div>
+                                                            <div class="card-actions"><a href="https://federalistparties.net" target="_blank" class="action-btn">Access Domain File</a></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li class="tree-node">
+                                                    <div class="entity-card subsidiary">
+                                                        <div class="entity-header">
+                                                            <div>
+                                                                <div class="entity-name">Blue Lake Springs HOA</div>
+                                                                <div class="entity-type">Social Club</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <span class="ownership-badge">0.05% OWNERSHIP</span>
+                                                            <div class="tax-details">
+                                                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">94-610887</span></div>
+                                                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">501(c)(7)</span></div>
+                                                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Registered Address</span><span class="meta-value">PO Box 712, Arnold, CA</span></div>
+                                                            </div>
+                                                            <div class="card-actions"><a href="https://blsha.com/" target="_blank" class="action-btn">Access Domain File</a></div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Separate Base Corporate Entities -->
+                        <li class="tree-node">
+                            <div class="entity-card commercial">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Las Taven LLC</div>
+                                        <div class="entity-type">Bar Entity</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXXX</span></div>
+                                        <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="tree-node">
+                            <div class="entity-card commercial">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Lincoln Logs &amp; Hot Dogs Emporium</div>
+                                        <div class="entity-type">C Corporation</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <span class="ownership-badge">10% OWNED BY ADAM</span>
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">501(c)(7) Pend.</span></div>
+                                        <div class="meta-item"><span class="meta-label">Registered Address</span><span class="meta-value">Bloomington, IL</span></div>
+                                    </div>
+                                    <div class="legal-disclaimer">NOTICE: Form 1024-A / 1023 structure pending. No contributions are deductible under IRC § 170(c).</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="tree-node">
+                            <div class="entity-card commercial">
+                                <div class="entity-header">
+                                    <div>
+                                        <div class="entity-name">Barnhart LLC</div>
+                                        <div class="entity-type">Indiana Corporate Entity</div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="tax-details">
+                                        <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">Pending LLC</span></div>
+                                        <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Indiana</span></div>
+                                    </div>
+                                    <div class="legal-disclaimer">STATUS: Articles of Organization pending with Indiana Sec. of State.</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2: INDEPENDENT PRIVATE FOUNDATIONS -->
+        <div class="registry-section">
+            <div class="section-title">II. Philanthropic Entities (Shared Board)</div>
+            <ul class="tree-branch">
+                <li class="tree-node">
+                    <div class="entity-card foundation">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Charlie Asher Cornelius Foundation</div>
+                                <div class="entity-type">Private Non-Profit Foundation</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tax-details">
+                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">39-4599832</span></div>
+                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">501(c)(3) Pend.</span></div>
+                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                            </div>
+                            <div class="legal-disclaimer">NOTICE: Form 1023 pending. Contributions not deductible.</div>
+                            <div class="card-actions"><a href="https://pocz.cc/foundation" target="_blank" class="action-btn">Access Domain File</a></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="tree-node">
+                    <div class="entity-card foundation">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Anna Solkowski Foundation Inc</div>
+                                <div class="entity-type">Private Non-Profit Foundation</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tax-details">
+                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXXX</span></div>
+                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">501(c)(3) Exempt</span></div>
+                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Jurisdiction</span><span class="meta-value">State of Illinois</span></div>
+                            </div>
+                            <div class="card-actions"><a href="https://chicagotypewriter.org" target="_blank" class="action-btn">Access Domain File</a></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="tree-node">
+                    <div class="entity-card foundation">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Little Hands: Parent-Child Center</div>
+                                <div class="entity-type">IRS Recognized Public Charity</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tax-details">
+                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">94-2531221</span></div>
+                                <div class="meta-item"><span class="meta-label">Registered Location</span><span class="meta-value">Belmont, CA</span></div>
+                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Operational Focus</span><span class="meta-value">Early childhood growth</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- SECTION 3: INDEPENDENT POLITICAL COMMITTEES -->
+        <div class="registry-section">
+            <div class="section-title">III. Political &amp; Campaign Committees</div>
+            <ul class="tree-branch">
+                <li class="tree-node">
+                    <div class="entity-card political">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Friends of Adam Cornelius</div>
+                                <div class="entity-type">Chicago Election Campaign Comm.</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tax-details">
+                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXXX</span></div>
+                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">527 Political Comm.</span></div>
+                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Regulatory Body</span><span class="meta-value">Illinois Board of Elections</span></div>
+                            </div>
+                            <div class="card-actions"><a href="https://1stman.org" target="_blank" class="action-btn">Access Domain File</a></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="tree-node">
+                    <div class="entity-card political">
+                        <div class="entity-header">
+                            <div>
+                                <div class="entity-name">Chicago School Board Alumni PAC</div>
+                                <div class="entity-type">Chicago Election PAC</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tax-details">
+                                <div class="meta-item"><span class="meta-label">Employer ID (EIN)</span><span class="meta-value">XX-XXXXXXX</span></div>
+                                <div class="meta-item"><span class="meta-label">Tax Classification</span><span class="meta-value">527 Committee</span></div>
+                                <div class="meta-item" style="grid-column: span 2;"><span class="meta-label">Regulatory Body</span><span class="meta-value">Illinois Board of Elections</span></div>
+                            </div>
+                            <div class="card-actions"><a href="https://CPSpac.org" target="_blank" class="action-btn">Access Domain File</a></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.sqs-entity-wrapper li.tree-node').forEach(node => {
+            const childBranch = Array.from(node.children).find(c => c.classList.contains('tree-branch'));
+            
+            if (childBranch && !node.querySelector(':scope > .toggle-btn')) {
+                const btn = document.createElement('button');
+                btn.className = 'toggle-btn';
+                btn.innerHTML = '−'; 
+                btn.title = "Toggle branch visibility";
+                
+                const card = Array.from(node.children).find(c => c.classList.contains('entity-card'));
+                if(card) { node.insertBefore(btn, card); }
+
+                btn.addEventListener('click', () => {
+                    childBranch.classList.toggle('collapsed');
+                    btn.innerHTML = childBranch.classList.contains('collapsed') ? '+' : '−';
+                });
+            }
+        });
+    });
+</script>
